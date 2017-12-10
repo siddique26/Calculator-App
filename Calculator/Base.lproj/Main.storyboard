@@ -32,6 +32,9 @@
                                                 <state key="normal" title="C">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="clear:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3aB-Rk-DOU"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11D-9L-GXY">
                                                 <rect key="frame" x="91" y="0.0" width="82.5" height="82.5"/>
@@ -259,6 +262,9 @@
                                                 <state key="normal" title="=">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="Calculation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4aD-ef-Pp6"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     var new = true
+    var calculate = Number()
     @IBOutlet weak var display: UILabel!
     @IBOutlet var round: [UIButton]!
     
@@ -35,8 +36,57 @@ class ViewController: UIViewController {
     @IBAction func touch(_ sender: UIButton) {
        let digit = sender.currentTitle
         addDigit(number: digit!)
+        calculate.push(digit!)
+        cal()
+        calculate.pop()
     }
-  
+    @IBAction func Calculation(_ sender: UIButton) {
+        var double: Double
+        var int: Int
+        if calculate.addSub != 0.0{
+            double = calculate.addSub
+            int = Int(calculate.addSub)
+        }else{
+            double = calculate.muldiv
+            int = Int(calculate.addSub)
+        }
+        let result = double - (Double(int) * 1.00)
+        if result == 0.00{
+            display.text = String(int)
+        }else{
+        display.text = String(double)
+        }
+    }
+    @IBAction func clear(_ sender: UIButton) {
+        display.text = "0"
+        new = true
+        calculate.addSub = 0.0
+        calculate.heap = 0.0
+        calculate.muldiv = 0.0
+        calculate.operation = ""
+    }
+    
+    func cal(){
+        switch calculate.operation{
+        case "+":
+            calculate.addSub += calculate.heap
+            break
+        case "-":
+            calculate.addSub += calculate.heap
+            break
+        case "*":
+            calculate.muldiv += calculate.heap
+            break
+        case "/":
+            calculate.muldiv += calculate.heap
+            break
+        case ".":
+            calculate.items.append(".")
+        default:
+            break
+        }
+    }
+    
     
     
 }
