@@ -19,22 +19,22 @@ class ViewController: UIViewController {
         for a in round{
             a.layer.cornerRadius = a.bounds.size.width/2
         }
-       
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     func addDigit(number: String){
         var textDisplay = display.text!
-            if new{
+        if new{
             textDisplay = ""
             new = false
-            }
+        }
         textDisplay = textDisplay + number
         display.text = textDisplay
     }
     
     @IBAction func touch(_ sender: UIButton) {
-       let digit = sender.currentTitle
+        let digit = sender.currentTitle
         addDigit(number: digit!)
         calculate.push(digit!)
         cal()
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         if result == 0.00{
             display.text = String(int)
         }else{
-        display.text = String(double)
+            display.text = String(double)
         }
     }
     @IBAction func clear(_ sender: UIButton) {
@@ -72,13 +72,13 @@ class ViewController: UIViewController {
             calculate.addSub += calculate.heap
             break
         case "-":
-            calculate.addSub += calculate.heap
+            calculate.addSub -= calculate.heap
             break
         case "*":
-            calculate.muldiv += calculate.heap
+            calculate.muldiv *= calculate.heap
             break
         case "/":
-            calculate.muldiv += calculate.heap
+            calculate.muldiv /= calculate.heap
             break
         case ".":
             calculate.items.append(".")
@@ -90,4 +90,3 @@ class ViewController: UIViewController {
     
     
 }
-

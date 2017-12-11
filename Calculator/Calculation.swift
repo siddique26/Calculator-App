@@ -17,7 +17,7 @@ class Number{
     func push(_ item: String){
         items.append(item)
         for item in items{
-            if item == "+" || item == "-" || item == "*" || item == "/" || item == "." {
+            if item == "+" || item == "-" || item == "*" || item == "/" || item == "%" {
                 operation = item
             }
             else{
@@ -28,5 +28,5 @@ class Number{
     func pop(){
         items.removeLast()
     }
-
+    
 }
