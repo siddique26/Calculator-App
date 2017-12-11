@@ -10,11 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     var new = true
-    var previousNumber: Double = 0.0
-    var currentNumber: Double = 0.0
+    var previousNumber: String = "0.0"
+    var currentNumber: String = "0.0"
     var storedOperator: String? = ""
     var operatorInitialValue: Bool = true
     var answer = 0.0
+    var result = 0.0
     @IBOutlet weak var display: UILabel!
     @IBOutlet var round: [UIButton]!
     
@@ -43,11 +44,11 @@ class ViewController: UIViewController {
     }
     @IBAction func numericButtons(_ sender: UIButton) {
         let number = sender.currentTitle
-        storeOperand(Double(number!)!)
+        storeOperand(number!)
     }
     @IBAction func operators(_ sender: UIButton) {
             let sign = sender.currentTitle
-        if currentNumber != 0.0 {
+        if currentNumber != "0" {
             storedOperator = sign
             operatorInitialValue = false
         }
@@ -57,18 +58,17 @@ class ViewController: UIViewController {
         computeValue()
     }
     //Storing operands
-    func storeOperand(_ element: Double){
+    func storeOperand(_ element: String){
         if storedOperator == ""{
-            if currentNumber == 0.0{
+            if currentNumber == "0"{
                 currentNumber = element
             }else{
                 currentNumber += element
             }
         }else{
             previousNumber = currentNumber
-            currentNumber = 0.0
-            
-            if currentNumber == 0.0{
+            currentNumber = "0"
+            if currentNumber == "0"{
                 currentNumber = element
             }else{
                 currentNumber += element
@@ -77,10 +77,9 @@ class ViewController: UIViewController {
     }
     //Calculating the result from entered operator and operands
     func computeValue(){
-        let value1 = previousNumber
-        let value2 = currentNumber
+        let value1 = (previousNumber as NSString).doubleValue
+        let value2 = (currentNumber as NSString).doubleValue
         if let sign = storedOperator{
-            var result = 0.0
             switch sign{
             case "+":
                 result = value1 + value2
@@ -100,11 +99,11 @@ class ViewController: UIViewController {
             default:
             break
             }
-            currentNumber = result
+//            currentNumber = String(result)
         }
-        previousNumber = 0.0
+        previousNumber = "0"
         storedOperator = "0"
-        answer = currentNumber
+        answer = result
         displayResult(answer)
     }
    //Displaying the result
@@ -122,8 +121,8 @@ class ViewController: UIViewController {
     @IBAction func clear(_ sender: UIButton) {
         display.text = "0"
         new = true
-        previousNumber = 0.0
-        currentNumber = 0.0
+        previousNumber = "0"
+        currentNumber = "0"
         answer = 0.0
         storedOperator = ""
         operatorInitialValue = true
