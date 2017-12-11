@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
+    //Showing numbers in display
     func addDigit(number: String){
         var textDisplay = display.text!
         if new{
@@ -56,6 +56,7 @@ class ViewController: UIViewController {
     @IBAction func equal(_ sender: UIButton) {
         computeValue()
     }
+    //Storing operands
     func storeOperand(_ element: Double){
         if storedOperator == ""{
             if currentNumber == 0.0{
@@ -74,6 +75,7 @@ class ViewController: UIViewController {
             }
         }
     }
+    //Calculating the result from entered operator and operands
     func computeValue(){
         let value1 = previousNumber
         let value2 = currentNumber
@@ -105,7 +107,7 @@ class ViewController: UIViewController {
         answer = currentNumber
         displayResult(answer)
     }
-   
+   //Displaying the result
     func displayResult(_ item: Double){
         let double: Double = item
         let int: Int = Int(item)
@@ -116,7 +118,7 @@ class ViewController: UIViewController {
             display.text = String(double)
         }
     }
-
+    //Resetting the values
     @IBAction func clear(_ sender: UIButton) {
         display.text = "0"
         new = true
