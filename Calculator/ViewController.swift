@@ -10,12 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     var new = true
-    var previousNumber: String = "0.0"
-    var currentNumber: String = "0.0"
-    var storedOperator: String? = ""
-    var operatorInitialValue: Bool = true
+    var currentValue: String = ""
+    var operand = [String]()
+    var operators = [String]()
     var answer = 0.0
-    var result = 0.0
     @IBOutlet weak var display: UILabel!
     @IBOutlet var round: [UIButton]!
     
@@ -41,71 +39,53 @@ class ViewController: UIViewController {
     @IBAction func touch(_ sender: UIButton) {
         let digit = sender.currentTitle
         addDigit(number: digit!)
-    }
-    @IBAction func numericButtons(_ sender: UIButton) {
-        let number = sender.currentTitle
-        storeOperand(number!)
-    }
-    @IBAction func operators(_ sender: UIButton) {
-            let sign = sender.currentTitle
-        if currentNumber != "0" {
-            storedOperator = sign
-            operatorInitialValue = false
-        }
+        storeOperand(digit!)
     }
 
     @IBAction func equal(_ sender: UIButton) {
-        computeValue()
-    }
-    //Storing operands
-    func storeOperand(_ element: String){
-        if storedOperator == ""{
-            if currentNumber == "0"{
-                currentNumber = element
-            }else{
-                currentNumber += element
-            }
-        }else{
-            previousNumber = currentNumber
-            currentNumber = "0"
-            if currentNumber == "0"{
-                currentNumber = element
-            }else{
-                currentNumber += element
-            }
+        if currentValue.contains("+"){
+            answer = Double(currentValue.components(separatedBy: "+").flatMap{ Int($0)}.reduce(0){ $0 +   $1})
+        }else if currentValue.contains("-"){
+            answer = Double(currentValue.components(separatedBy: "-").flatMap{ Int($0)}.reduce(0,{-($0)-$1}))
+        }else if currentValue.contains("*"){
+            answer = Double(currentValue.components(separatedBy: "*").flatMap{ Int($0)}.reduce(1, {
+                $0 * $1
+            }))
+        }else if currentValue.contains("/"){
+            let  lhs = currentValue.index(currentValue.startIndex, offsetBy: 0)
+            let  rhs = currentValue.index(currentValue.startIndex, offsetBy: 2)
+            let a = String(currentValue[lhs])
+            let b = String(currentValue[rhs])
+            let operand1 = Double(a)
+            let operand2 = Double(b)
+            answer = operand1! / operand2!
         }
-    }
-    //Calculating the result from entered operator and operands
-    func computeValue(){
-        let value1 = (previousNumber as NSString).doubleValue
-        let value2 = (currentNumber as NSString).doubleValue
-        if let sign = storedOperator{
-            switch sign{
-            case "+":
-                result = value1 + value2
-                break
-            case "-":
-                result = value1 - value2
-                break
-            case "*":
-                result = value1 * value2
-                break
-            case "/":
-                result = value1 / value2
-                break
-            case "%":
-                result = value1.truncatingRemainder(dividingBy: value2)
-                break
-            default:
-            break
-            }
-//            currentNumber = String(result)
+        else if currentValue.contains("%"){
+            let  lhs = currentValue.index(currentValue.startIndex, offsetBy: 0)
+            let  rhs = currentValue.index(currentValue.startIndex, offsetBy: 2)
+            let a = String(currentValue[lhs])
+            let b = String(currentValue[rhs])
+            let operand1 = Double(a)
+            let operand2 = Double(b)
+            answer = operand1!.truncatingRemainder(dividingBy: operand2!)
+            
         }
-        previousNumber = "0"
-        storedOperator = "0"
-        answer = result
         displayResult(answer)
     }
+    
+  //  func divide() -> String{
+    //        }
+    //Storing operands
+    func storeOperand(_ element: String){
+        
+            if currentValue == ""{
+                currentValue = element
+            }else{
+                currentValue += element
+            }
+
+    }
+   
    //Displaying the result
     func displayResult(_ item: Double){
         let double: Double = item
@@ -114,18 +94,15 @@ class ViewController: UIViewController {
         if finalAnswer == 0.00{
             display.text = String(int)
         }else{
-            display.text = String(double)
-        }
+        display.text = String(item)
+            }
     }
     //Resetting the values
     @IBAction func clear(_ sender: UIButton) {
         display.text = "0"
         new = true
-        previousNumber = "0"
-        currentNumber = "0"
+        currentValue = ""
         answer = 0.0
-        storedOperator = ""
-        operatorInitialValue = true
     }
 }
 
