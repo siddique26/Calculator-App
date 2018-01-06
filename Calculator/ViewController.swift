@@ -22,8 +22,6 @@ class ViewController: UIViewController {
         for a in round{
             a.layer.cornerRadius = a.bounds.size.width/2
         }
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
     //Showing numbers in display
     func addDigit(number: String){
@@ -55,28 +53,21 @@ class ViewController: UIViewController {
             let numberArray = currentValue.components(separatedBy: "/")
             let a  = numberArray[0]
             let b  = numberArray[1]
-            
             let operand1 = Double(a)
             let operand2 = Double(b)
-            
              answer = operand1! / operand2!
         }
         else if currentValue.contains("%"){
             let numberArray = currentValue.components(separatedBy: "%")
             let a  = numberArray[0]
             let b  = numberArray[1]
-            
             let operand1 = Double(a)
             let operand2 = Double(b)
-            
             answer = operand1! / operand2!
-            
         }
         displayResult(answer)
     }
-    
-  //  func divide() -> String{
-    //        }
+   
     //Storing operands
     func storeOperand(_ element: String){
         
