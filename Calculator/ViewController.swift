@@ -52,22 +52,24 @@ class ViewController: UIViewController {
                 $0 * $1
             }))
         }else if currentValue.contains("/"){
-            let  lhs = currentValue.index(currentValue.startIndex, offsetBy: 0)
-            let  rhs = currentValue.index(currentValue.startIndex, offsetBy: 2)
-            let a = String(currentValue[lhs])
-            let b = String(currentValue[rhs])
+            let numberArray = currentValue.components(separatedBy: "/")
+            let a  = numberArray[0]
+            let b  = numberArray[1]
+            
             let operand1 = Double(a)
             let operand2 = Double(b)
-            answer = operand1! / operand2!
+            
+             answer = operand1! / operand2!
         }
         else if currentValue.contains("%"){
-            let  lhs = currentValue.index(currentValue.startIndex, offsetBy: 0)
-            let  rhs = currentValue.index(currentValue.startIndex, offsetBy: 2)
-            let a = String(currentValue[lhs])
-            let b = String(currentValue[rhs])
+            let numberArray = currentValue.components(separatedBy: "%")
+            let a  = numberArray[0]
+            let b  = numberArray[1]
+            
             let operand1 = Double(a)
             let operand2 = Double(b)
-            answer = operand1!.truncatingRemainder(dividingBy: operand2!)
+            
+            answer = operand1! / operand2!
             
         }
         displayResult(answer)
